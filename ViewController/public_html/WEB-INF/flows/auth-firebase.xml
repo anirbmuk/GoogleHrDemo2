@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="auth-firebase">
+    <default-activity>AuthFirebase</default-activity>
+    <data-control-scope>
+      <isolated/>
+    </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>firebaseBean</managed-bean-name>
+      <managed-bean-class>blog.anirbanm.googlehr.view.bean.FirebaseManager</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <method-call id="AuthFirebase">
+      <method>#{pageFlowScope.firebaseBean.authFirebase}</method>
+      <outcome>
+        <fixed-outcome>view</fixed-outcome>
+      </outcome>
+    </method-call>
+    <task-flow-call id="main-defn">
+      <task-flow-reference>
+        <document>/WEB-INF/flows/main-defn.xml</document>
+        <id>main-defn</id>
+      </task-flow-reference>
+    </task-flow-call>
+    <control-flow-rule id="__2">
+      <from-activity-id>AuthFirebase</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>view</from-outcome>
+        <to-activity-id>main-defn</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

@@ -1,0 +1,176 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<jsp:root xmlns:jsp="http://java.sun.com/JSP/Page" version="2.1" xmlns:af="http://xmlns.oracle.com/adf/faces/rich"
+          xmlns:f="http://java.sun.com/jsf/core">
+    <af:panelGroupLayout id="pgl1" layout="scroll" styleClass="AFStretchWidth">
+        <af:spacer width="10" height="10" id="s1"/>
+        <af:panelCollection id="pc1" styleClass="AFStretchWidth">
+            <af:table value="#{bindings.DepartmentsPVO1.collectionModel}" var="row"
+                      rows="#{bindings.DepartmentsPVO1.rangeSize}" styleClass="AFStretchWidth"
+                      emptyText="#{bindings.DepartmentsPVO1.viewable ? 'No departments found.' : 'Access Denied.'}"
+                      rowBandingInterval="0" selectedRowKeys="#{bindings.DepartmentsPVO1.collectionModel.selectedRow}"
+                      rowSelection="single" fetchSize="#{bindings.DepartmentsPVO1.rangeSize}" id="t1"
+                      summary="Departments" autoHeightRows="5"
+                      selectionListener="#{pageFlowScope.firebaseBean.onDepartmentSelection}">
+                <af:column headerText="#{bindings.DepartmentsPVO1.hints.DepartmentId.label}" id="c1" rowHeader="true"
+                           align="left" width="135">
+                    <af:outputText value="#{row.DepartmentId}"
+                                   shortDesc="#{bindings.DepartmentsPVO1.hints.DepartmentId.tooltip}" id="ot1">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.DepartmentsPVO1.hints.DepartmentId.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.DepartmentsPVO1.hints.DepartmentName.label}" id="c2" width="135">
+                    <af:outputText value="#{row.DepartmentName}"
+                                   shortDesc="#{bindings.DepartmentsPVO1.hints.DepartmentName.tooltip}" id="ot2"/>
+                </af:column>
+                <af:column headerText="#{bindings.DepartmentsPVO1.hints.ManagerId.label}" id="c3" width="135">
+                    <af:outputText value="#{row.ManagerId}"
+                                   shortDesc="#{bindings.DepartmentsPVO1.hints.ManagerId.tooltip}" id="ot3">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.DepartmentsPVO1.hints.ManagerId.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.DepartmentsPVO1.hints.LocationId.label}" id="c4" width="135">
+                    <af:outputText value="#{row.LocationId}"
+                                   shortDesc="#{bindings.DepartmentsPVO1.hints.LocationId.tooltip}" id="ot4">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.DepartmentsPVO1.hints.LocationId.format}"/>
+                    </af:outputText>
+                </af:column>
+            </af:table>
+            <f:facet name="toolbar">
+                <af:toolbar id="t3">
+                    <af:button text="Add" id="b1">
+                        <af:showPopupBehavior popupId="p1"/>
+                    </af:button>
+                    <af:button actionListener="#{bindings.deleteDepartment.execute}" text="Delete" id="b2"/>
+                </af:toolbar>
+            </f:facet>
+            <af:popup childCreation="deferred" autoCancel="disabled" contentDelivery="lazyUncached" id="p1"
+                      popupFetchListener="#{pageFlowScope.firebaseBean.onCreateDepartmentPopup}">
+                <af:dialog id="d1" title="Add Department" type="okCancel" affirmativeTextAndAccessKey="Save"
+                           dialogListener="#{pageFlowScope.firebaseBean.onSaveDepartment}">
+                    <af:panelFormLayout id="pfl1">
+                        <af:inputText label="Id" id="it1" value="#{pageFlowScope.firebaseBean.department.departmentId}"
+                                      autoComplete="off"/>
+                        <af:inputText label="Name" id="it2"
+                                      value="#{pageFlowScope.firebaseBean.department.departmentName}"
+                                      autoComplete="off"/>
+                        <af:inputText label="Manager" id="it3"
+                                      value="#{pageFlowScope.firebaseBean.department.managerId}" autoComplete="off"/>
+                        <af:inputText label="Location" id="it4"
+                                      value="#{pageFlowScope.firebaseBean.department.locationId}" autoComplete="off"/>
+                    </af:panelFormLayout>
+                </af:dialog>
+            </af:popup>
+        </af:panelCollection>
+        <af:spacer width="10" height="10" id="s2"/>
+        <af:panelCollection id="pc2" styleClass="AFStretchWidth">
+            <af:table value="#{bindings.EmployeesPVO1.collectionModel}" var="row"
+                      rows="#{bindings.EmployeesPVO1.rangeSize}" styleClass="AFStretchWidth"
+                      emptyText="#{bindings.EmployeesPVO1.viewable ? 'No employees found.' : 'Access Denied.'}"
+                      rowBandingInterval="0" fetchSize="#{bindings.EmployeesPVO1.rangeSize}" id="t2" summary="Employees"
+                      autoHeightRows="5">
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.EmployeeId.label}" id="c5" rowHeader="true"
+                           align="left" width="110">
+                    <af:outputText value="#{row.EmployeeId}"
+                                   shortDesc="#{bindings.EmployeesPVO1.hints.EmployeeId.tooltip}" id="ot5">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.EmployeesPVO1.hints.EmployeeId.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.FirstName.label}" id="c6" width="110">
+                    <af:outputText value="#{row.FirstName}"
+                                   shortDesc="#{bindings.EmployeesPVO1.hints.FirstName.tooltip}" id="ot6"/>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.LastName.label}" id="c7" width="110">
+                    <af:outputText value="#{row.LastName}" shortDesc="#{bindings.EmployeesPVO1.hints.LastName.tooltip}"
+                                   id="ot7"/>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.Email.label}" id="c8" width="110">
+                    <af:outputText value="#{row.Email}" shortDesc="#{bindings.EmployeesPVO1.hints.Email.tooltip}"
+                                   id="ot8"/>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.HireDate.label}" id="c9" width="110">
+                    <af:outputText value="#{row.HireDate}" shortDesc="#{bindings.EmployeesPVO1.hints.HireDate.tooltip}"
+                                   id="ot9"/>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.JobId.label}" id="c10" width="110">
+                    <af:outputText value="#{row.JobId}" shortDesc="#{bindings.EmployeesPVO1.hints.JobId.tooltip}"
+                                   id="ot10"/>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.PhoneNumber.label}" id="c11" width="110">
+                    <af:outputText value="#{row.PhoneNumber}"
+                                   shortDesc="#{bindings.EmployeesPVO1.hints.PhoneNumber.tooltip}" id="ot11"/>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.Salary.label}" id="c12" width="110">
+                    <af:outputText value="#{row.Salary}" shortDesc="#{bindings.EmployeesPVO1.hints.Salary.tooltip}"
+                                   id="ot12">
+                        <af:convertNumber groupingUsed="false" pattern="#{bindings.EmployeesPVO1.hints.Salary.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.CommissionPct.label}" id="c13" width="110">
+                    <af:outputText value="#{row.CommissionPct}"
+                                   shortDesc="#{bindings.EmployeesPVO1.hints.CommissionPct.tooltip}" id="ot13">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.EmployeesPVO1.hints.CommissionPct.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.ManagerId.label}" id="c14" width="110">
+                    <af:outputText value="#{row.ManagerId}"
+                                   shortDesc="#{bindings.EmployeesPVO1.hints.ManagerId.tooltip}" id="ot14">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.EmployeesPVO1.hints.ManagerId.format}"/>
+                    </af:outputText>
+                </af:column>
+                <af:column headerText="#{bindings.EmployeesPVO1.hints.DepartmentId.label}" id="c15" width="110">
+                    <af:outputText value="#{row.DepartmentId}"
+                                   shortDesc="#{bindings.EmployeesPVO1.hints.DepartmentId.tooltip}" id="ot15">
+                        <af:convertNumber groupingUsed="false"
+                                          pattern="#{bindings.EmployeesPVO1.hints.DepartmentId.format}"/>
+                    </af:outputText>
+                </af:column>
+            </af:table>
+            <f:facet name="toolbar">
+                <af:toolbar id="t4">
+                    <af:button text="Add" id="b3">
+                        <af:showPopupBehavior popupId="p2"/>
+                    </af:button>
+                </af:toolbar>
+            </f:facet>
+            <af:popup childCreation="deferred" autoCancel="disabled" contentDelivery="lazyUncached" id="p2"
+                      popupFetchListener="#{pageFlowScope.firebaseBean.onCreateEmployeePopup}">
+                <af:dialog id="d2" title="Add Employee" type="okCancel" affirmativeTextAndAccessKey="Save"
+                           dialogListener="#{pageFlowScope.firebaseBean.onSaveEmployee}">
+                    <af:panelFormLayout id="pfl2">
+                        <af:inputText label="Employee Id" id="it5"
+                                      value="#{pageFlowScope.firebaseBean.employee.employeeId}" autoComplete="off"/>
+                        <af:inputText label="Department Id" id="it6"
+                                      value="#{pageFlowScope.firebaseBean.employee.departmentId}" disabled="true"/>
+                        <af:inputText label="First Name" id="it7"
+                                      value="#{pageFlowScope.firebaseBean.employee.firstName}" autoComplete="off"/>
+                        <af:inputText label="Last Name" id="it8" value="#{pageFlowScope.firebaseBean.employee.lastName}"
+                                      autoComplete="off"/>
+                        <af:inputText label="Email" id="it9" value="#{pageFlowScope.firebaseBean.employee.email}"
+                                      autoComplete="off"/>
+                        <af:inputText label="Job" id="it10" value="#{pageFlowScope.firebaseBean.employee.jobId}"
+                                      autoComplete="off"/>
+                        <af:inputText label="Phone" id="it11" value="#{pageFlowScope.firebaseBean.employee.phoneNumber}"
+                                      autoComplete="off"/>
+                        <af:inputDate label="Hire Date" id="it12"
+                                      value="#{pageFlowScope.firebaseBean.employee.hireDate}" autoComplete="off">
+                            <af:convertDateTime type="date" pattern="dd/MM/yyyy"/>
+                        </af:inputDate>
+                        <af:inputText label="Salary" id="it13" value="#{pageFlowScope.firebaseBean.employee.salary}"
+                                      autoComplete="off"/>
+                        <af:inputText label="Commission" id="it14"
+                                      value="#{pageFlowScope.firebaseBean.employee.commissionPct}" autoComplete="off"/>
+                        <af:inputText label="Manager Id" id="it15"
+                                      value="#{pageFlowScope.firebaseBean.employee.managerId}" autoComplete="off"/>
+                    </af:panelFormLayout>
+                </af:dialog>
+            </af:popup>
+        </af:panelCollection>
+        <af:spacer width="10" height="10" id="s3"/>
+    </af:panelGroupLayout>
+</jsp:root>

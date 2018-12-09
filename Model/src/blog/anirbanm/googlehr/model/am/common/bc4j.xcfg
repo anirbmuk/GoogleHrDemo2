@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<!---->
+<BC4JConfig xmlns="http://xmlns.oracle.com/bc4j/configuration" version="11.1">
+  <AppModuleConfigBag ApplicationName="blog.anirbanm.googlehr.model.am.GoogleHrModule">
+    <AppModuleConfig name="GoogleHrModuleLocal" jbo.project="blog.anirbanm.googlehr.model.Model"
+                     ApplicationName="blog.anirbanm.googlehr.model.am.GoogleHrModule" DeployPlatform="LOCAL"
+                     jbo.passivationstore="file">
+      <Security AppModuleJndiName="blog.anirbanm.googlehr.model.am.GoogleHrModule"/>
+    </AppModuleConfig>
+    <AppModuleConfig name="GoogleHrModuleShared" jbo.project="blog.anirbanm.googlehr.model.Model"
+                     ApplicationName="blog.anirbanm.googlehr.model.am.GoogleHrModule" DeployPlatform="LOCAL"
+                     jbo.passivationstore="file">
+      <AM-Pooling jbo.ampool.maxpoolsize="1" jbo.ampool.isuseexclusive="false"/>
+      <Security AppModuleJndiName="blog.anirbanm.googlehr.model.am.GoogleHrModule"/>
+    </AppModuleConfig>
+  </AppModuleConfigBag>
+</BC4JConfig>

@@ -1,0 +1,47 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<SDM>
+   <OverallProperties
+      id="OverallProperties1"/>
+   <MethodCall
+      id="MethodCall3">
+      <property
+         name="activityId">AuthFirebase</property>
+      <property
+         name="x">135.0</property>
+      <property
+         name="start">true</property>
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>AuthFirebase&lt;/b> (Default Activity)&lt;/p>&lt;p>Activity Type:  Method Call&lt;/p></property>
+      <property
+         name="y">143.33887</property>
+      <property
+         name="exceptionHandler">false</property>
+   </MethodCall>
+   <TaskFlowCall
+      id="TaskFlowCall3">
+      <property
+         name="description">&lt;html>&lt;p>&lt;b>main-defn&lt;/b>&lt;/p>&lt;p>Activity Type:  Task Flow Call&lt;/p></property>
+      <property
+         name="activityId">main-defn</property>
+      <property
+         name="x">421.5</property>
+      <property
+         name="y">141.44824</property>
+      <property
+         name="documentReference">/WEB-INF/flows/main-defn.xml</property>
+      <property
+         name="exceptionHandler">false</property>
+      <property
+         name="taskFlowId">main-defn</property>
+   </TaskFlowCall>
+   <ControlFlowCase
+      islink="true"
+      id="ControlFlowCase4"
+      from="MethodCall3"
+      to="TaskFlowCall3">
+      <property
+         name="fromOutcome">view</property>
+      <property
+         name="sdm:polyPoints">R50,176.0,142.98828,380.5,141.09766,L50</property>
+   </ControlFlowCase>
+</SDM>

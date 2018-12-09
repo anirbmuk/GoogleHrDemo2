@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<pageDefinition xmlns="http://xmlns.oracle.com/adfm/uimodel" version="12.2.1.9.14"
+                id="main_defn_main_defn_InitDepartmentsPageDef" Package="blog.anirbanm.googlehr.view.pageDefs.flows" SkipValidation="true">
+  <parameters/>
+  <executables>
+    <variableIterator id="variables"/>
+  </executables>
+  <bindings>
+    <methodAction id="initDepartments" RequiresUpdateModel="true" Action="invokeMethod" MethodName="initDepartments"
+                  IsViewObjectMethod="false" DataControl="GoogleHrModuleDataControl"
+                  InstanceName="bindings.initDepartments.dataControl.dataProvider"/>
+  </bindings>
+</pageDefinition>

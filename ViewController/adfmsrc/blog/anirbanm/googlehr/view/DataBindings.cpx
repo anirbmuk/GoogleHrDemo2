@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Application xmlns="http://xmlns.oracle.com/adfm/application" version="12.2.1.9.14" id="DataBindings"
+             SeparateXMLFiles="false" Package="blog.anirbanm.googlehr.view" ClientType="Generic">
+  <definitionFactories>
+    <factory nameSpace="http://xmlns.oracle.com/adf/controller/binding"
+             className="oracle.adf.controller.internal.binding.TaskFlowBindingDefFactoryImpl"/>
+    <dtfactory className="oracle.adf.controller.internal.dtrt.binding.BindingDTObjectFactory"/>
+  </definitionFactories>
+  <pageMap>
+    <page path="/WEB-INF/flows/auth-firebase.xml#auth-firebase@AuthFirebase"
+          usageId="blog_anirbanm_googlehr_view_flow_auth_firebase_auth_firebase_AuthFirebasePageDef"/>
+    <page path="/home.jspx" usageId="blog_anirbanm_googlehr_view_homePageDef"/>
+    <page path="/WEB-INF/fragments/MainView.jsff" usageId="blog_anirbanm_googlehr_view_MainViewPageDef"/>
+    <page path="/WEB-INF/flows/main-defn.xml#main-defn@InitDepartments"
+          usageId="blog_anirbanm_googlehr_view_main_defn_main_defn_InitDepartmentsPageDef"/>
+  </pageMap>
+  <pageDefinitionUsages>
+    <page id="blog_anirbanm_googlehr_view_flow_auth_firebase_auth_firebase_AuthFirebasePageDef"
+          path="blog.anirbanm.googlehr.view.pageDefs.flows.auth_firebase_auth_firebase_AuthFirebasePageDef"/>
+    <page id="blog_anirbanm_googlehr_view_homePageDef" path="blog.anirbanm.googlehr.view.pageDefs.homePageDef"/>
+    <page id="blog_anirbanm_googlehr_view_MainViewPageDef"
+          path="blog.anirbanm.googlehr.view.pageDefs.fragments.MainViewPageDef"/>
+    <page id="blog_anirbanm_googlehr_view_main_defn_main_defn_InitDepartmentsPageDef"
+          path="blog.anirbanm.googlehr.view.pageDefs.flows.main_defn_main_defn_InitDepartmentsPageDef"/>
+  </pageDefinitionUsages>
+  <dataControlUsages>
+    <BC4JDataControl id="GoogleHrModuleDataControl" Package="blog.anirbanm.googlehr.model.am"
+                     FactoryClass="oracle.adf.model.bc4j.DataControlFactoryImpl" SupportsTransactions="true"
+                     SupportsFindMode="true" SupportsRangesize="true" SupportsResetState="true"
+                     SupportsSortCollection="true" Configuration="GoogleHrModuleLocal" syncMode="Immediate"
+                     xmlns="http://xmlns.oracle.com/adfm/datacontrol"/>
+  </dataControlUsages>
+</Application>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<adfc-config xmlns="http://xmlns.oracle.com/adf/controller" version="1.2">
+  <task-flow-definition id="main-defn">
+    <default-activity>InitDepartments</default-activity>
+    <data-control-scope>
+      <shared/>
+    </data-control-scope>
+    <managed-bean id="__1">
+      <managed-bean-name>firebaseBean</managed-bean-name>
+      <managed-bean-class>blog.anirbanm.googlehr.view.bean.FirebaseManager</managed-bean-class>
+      <managed-bean-scope>pageFlow</managed-bean-scope>
+    </managed-bean>
+    <method-call id="InitDepartments">
+      <method>#{pageFlowScope.firebaseBean.initDepartments}</method>
+      <outcome>
+        <fixed-outcome>view</fixed-outcome>
+      </outcome>
+    </method-call>
+    <view id="MainView">
+      <page>/WEB-INF/fragments/MainView.jsff</page>
+    </view>
+    <control-flow-rule id="__2">
+      <from-activity-id>InitDepartments</from-activity-id>
+      <control-flow-case id="__3">
+        <from-outcome>view</from-outcome>
+        <to-activity-id>MainView</to-activity-id>
+      </control-flow-case>
+    </control-flow-rule>
+    <use-page-fragments/>
+  </task-flow-definition>
+</adfc-config>

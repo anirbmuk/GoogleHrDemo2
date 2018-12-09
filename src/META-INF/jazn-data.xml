@@ -1,0 +1,46 @@
+<?xml version = '1.0' encoding = 'UTF-8' standalone = 'yes'?>
+<jazn-data xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:noNamespaceSchemaLocation="http://xmlns.oracle.com/oracleas/schema/jazn-data.xsd">
+    <jazn-realm default="jazn.com">
+        <realm>
+            <name>jazn.com</name>
+        </realm>
+    </jazn-realm>
+    <policy-store>
+        <applications>
+            <application>
+                <name>GoogleHrDemo2</name>
+                <jazn-policy>
+                    <grant>
+                        <grantee>
+                            <principals>
+                                <principal>
+                                    <class>oracle.security.jps.internal.core.principals.JpsAuthenticatedRoleImpl</class>
+                                    <name>authenticated-role</name>
+                                </principal>
+                            </principals>
+                        </grantee>
+                        <permissions>
+                            <permission>
+                                <class>oracle.adf.share.security.authorization.RegionPermission</class>
+                                <name>blog.anirbanm.googlehr.view.pageDefs.homePageDef</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/flows/auth-firebase.xml#auth-firebase</name>
+                                <actions>view</actions>
+                            </permission>
+                            <permission>
+                                <class>oracle.adf.controller.security.TaskFlowPermission</class>
+                                <name>/WEB-INF/flows/main-defn.xml#main-defn</name>
+                                <actions>view</actions>
+                            </permission>
+                        </permissions>
+                    </grant>
+                </jazn-policy>
+            </application>
+        </applications>
+    </policy-store>
+    <system-policy/>
+</jazn-data>
