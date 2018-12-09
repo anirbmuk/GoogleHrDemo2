@@ -11,6 +11,7 @@ public class Department implements Serializable {
     private String departmentName;
     private Integer managerId;
     private Integer locationId;
+    private String createdBy;
 
     public Department() {
         super();
@@ -62,5 +63,13 @@ public class Department implements Serializable {
 
     public Integer getLocationId() {
         return locationId;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
     }
 }

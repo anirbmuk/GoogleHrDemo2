@@ -3,7 +3,6 @@ package blog.anirbanm.googlehr.view.bean;
 import blog.anirbanm.googlehr.view.ADFUtils;
 import blog.anirbanm.googlehr.view.JSFUtils;
 import blog.anirbanm.googlehr.viewmodel.data.Department;
-
 import blog.anirbanm.googlehr.viewmodel.data.Employee;
 
 import java.io.Serializable;
@@ -43,7 +42,9 @@ public class FirebaseManager implements Serializable {
     }
 
     public void onCreateDepartmentPopup(PopupFetchEvent popupFetchEvent) {
-        setDepartment(new Department());
+        final Department department = new Department();
+        department.setCreatedBy(getUsername());
+        setDepartment(department);
     }
 
     public void onCreateEmployeePopup(PopupFetchEvent popupFetchEvent) {
@@ -55,6 +56,7 @@ public class FirebaseManager implements Serializable {
         final Integer departmentId = (Integer) departmentRow.getAttribute("DepartmentId");
         final Employee employee = new Employee();
         employee.setDepartmentId(departmentId);
+        employee.setCreatedBy(getUsername());
         setEmployee(employee);
     }
 
@@ -64,6 +66,10 @@ public class FirebaseManager implements Serializable {
 
     public void onSaveEmployee(DialogEvent dialogEvent) {
         ADFUtils.findOperation("addEmployee").execute();
+    }
+    
+    private String getUsername() {
+        return (String) JSFUtils.resolveExpression("#{securityContext.userName}");
     }
 
     public void setDepartment(Department department) {

@@ -49,6 +49,8 @@ import org.w3c.dom.NodeList;
 // ---------------------------------------------------------------------
 public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleHrModule {
 
+    private final String PRIVATE_KEY = "C:\\JDeveloper\\122130\\hrstore-test-firebase-adminsdk-v4li2-09770ed145.json";
+    private final String FIREBAE_STORE = "hrstore";
     private String accessToken;
 
     /**
@@ -59,14 +61,13 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
 
     public void initFirebase() {
         try {
-            FileInputStream serviceAccount =
-                new FileInputStream("C:\\JDeveloper\\122130\\hrstore-test-firebase-adminsdk-v4li2-09770ed145.json");
+            FileInputStream serviceAccount = new FileInputStream(PRIVATE_KEY);
             GoogleCredentials googleCred = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(googleCred)
                                                                    .setDatabaseUrl("https://hrstore-test.firebaseio.com/")
                                                                    .build();
             if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options, "hrstore");
+                FirebaseApp.initializeApp(options, FIREBAE_STORE);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -75,8 +76,7 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
 
     public void generateAccessToken() {
         try {
-            FileInputStream serviceAccount =
-                new FileInputStream("C:\\JDeveloper\\122130\\hrstore-test-firebase-adminsdk-v4li2-09770ed145.json");
+            FileInputStream serviceAccount = new FileInputStream(PRIVATE_KEY);
             GoogleCredential googleCred =
                 GoogleCredential.fromStream(serviceAccount)
                 .createScoped(Arrays.asList("https://www.googleapis.com/auth/firebase.database",
@@ -224,19 +224,19 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
     }
 
     private String getAllDepartmentsUri() {
-        return getFirebaseDatabase("hrstore").child("Departments") + ".json";
+        return getFirebaseDatabase(FIREBAE_STORE).child("Departments") + ".json";
     }
 
     private String getDepartmentUri(final Integer departmentId) {
-        return getFirebaseDatabase("hrstore").child("Departments").child(String.valueOf(departmentId)) + ".json";
+        return getFirebaseDatabase(FIREBAE_STORE).child("Departments").child(String.valueOf(departmentId)) + ".json";
     }
 
     private String getEmployeeUri(final Integer employeeId) {
-        return getFirebaseDatabase("hrstore").child("Employees").child(String.valueOf(employeeId)) + ".json";
+        return getFirebaseDatabase(FIREBAE_STORE).child("Employees").child(String.valueOf(employeeId)) + ".json";
     }
 
     private String filterEmployeesByDepartmentUri(Integer departmentId) throws UnsupportedEncodingException {
-        return getFirebaseDatabase("hrstore").child("Employees") + ".json?" +
+        return getFirebaseDatabase(FIREBAE_STORE).child("Employees") + ".json?" +
                URLEncoder.encode("orderBy=\"DepartmentId\"&equalTo=" + departmentId, "UTF-8");
     }
 

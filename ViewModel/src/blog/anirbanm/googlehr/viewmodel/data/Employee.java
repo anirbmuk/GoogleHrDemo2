@@ -22,6 +22,7 @@ public class Employee implements Serializable {
     private BigDecimal commissionPct;
     private Integer managerId;
     private Integer departmentId;
+    private String createdBy;
 
     public Employee() {
         super();
@@ -121,5 +122,13 @@ public class Employee implements Serializable {
 
     public Integer getDepartmentId() {
         return departmentId;
+    }
+
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedBy() {
+        return createdBy;
     }
 }
