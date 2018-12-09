@@ -140,10 +140,6 @@
    <hash n="oracle.jdevimpl.config.JProjectLibraries">
       <list n="exportedReferences">
          <hash>
-            <url n="id" path="../../Google-Lib/GoogleLib.library"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="BC4J Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -213,15 +209,15 @@
          </hash>
          <hash>
             <value n="id" v="JAX-RS Jersey 2.x Jackson"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <url n="id" path="../../GoogleLib/lib/GoogleLib.library"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>
       <list n="libraryReferences">
          <hash>
-            <url n="id" path="../../Google-Lib/GoogleLib.library"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="BC4J Runtime"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -291,6 +287,10 @@
          </hash>
          <hash>
             <value n="id" v="JAX-RS Jersey 2.x Jackson"/>
+            <value n="isJDK" v="false"/>
+         </hash>
+         <hash>
+            <url n="id" path="../../GoogleLib/lib/GoogleLib.library"/>
             <value n="isJDK" v="false"/>
          </hash>
       </list>

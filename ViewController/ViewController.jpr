@@ -313,10 +313,6 @@
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
-            <url n="id" path="../../Google-Lib/GoogleLib.library"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
             <value n="id" v="Oracle JEWT"/>
             <value n="isJDK" v="false"/>
          </hash>
@@ -448,10 +444,6 @@
          </hash>
          <hash>
             <value n="id" v="WebLogic 12.1 Thin-Client"/>
-            <value n="isJDK" v="false"/>
-         </hash>
-         <hash>
-            <url n="id" path="../../Google-Lib/GoogleLib.library"/>
             <value n="isJDK" v="false"/>
          </hash>
          <hash>
