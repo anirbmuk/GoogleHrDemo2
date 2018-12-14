@@ -211,10 +211,6 @@
             <value n="id" v="JAX-RS Jersey 2.x Jackson"/>
             <value n="isJDK" v="false"/>
          </hash>
-         <hash>
-            <url n="id" path="../../GoogleLib/lib/GoogleLib.library"/>
-            <value n="isJDK" v="false"/>
-         </hash>
       </list>
       <list n="libraryReferences">
          <hash>

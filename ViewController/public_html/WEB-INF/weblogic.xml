@@ -6,4 +6,7 @@
     <role-name>valid-users</role-name>
     <principal-name>users</principal-name>
   </security-role-assignment>
+  <library-ref>
+    <library-name>google.shared.lib</library-name>
+  </library-ref>
 </weblogic-web-app>

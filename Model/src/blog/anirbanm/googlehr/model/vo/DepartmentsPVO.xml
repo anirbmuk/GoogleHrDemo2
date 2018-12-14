@@ -33,7 +33,14 @@
     PrecisionRule="true"
     Type="java.lang.Integer"
     ColumnType="$none$"
-    SQLType="INTEGER"/>
+    SQLType="INTEGER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="blog.anirbanm.googlehr.model.vo.DepartmentsPVO.DepartmentId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
   <ViewAttribute
     Name="DepartmentName"
     IsUpdateable="false"
@@ -43,7 +50,14 @@
     Precision="255"
     Type="java.lang.String"
     ColumnType="VARCHAR2"
-    SQLType="VARCHAR"/>
+    SQLType="VARCHAR">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="blog.anirbanm.googlehr.model.vo.DepartmentsPVO.DepartmentName_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
   <ViewAttribute
     Name="ManagerId"
     IsUpdateable="false"
@@ -52,7 +66,14 @@
     PrecisionRule="true"
     Type="java.lang.Integer"
     ColumnType="INTEGER"
-    SQLType="INTEGER"/>
+    SQLType="INTEGER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="blog.anirbanm.googlehr.model.vo.DepartmentsPVO.ManagerId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
   <ViewAttribute
     Name="LocationId"
     IsUpdateable="false"
@@ -61,7 +82,14 @@
     PrecisionRule="true"
     Type="java.lang.Integer"
     ColumnType="INTEGER"
-    SQLType="INTEGER"/>
+    SQLType="INTEGER">
+    <Properties>
+      <SchemaBasedProperties>
+        <LABEL
+          ResId="blog.anirbanm.googlehr.model.vo.DepartmentsPVO.LocationId_LABEL"/>
+      </SchemaBasedProperties>
+    </Properties>
+  </ViewAttribute>
   <AttrArray Name="KeyAttributes">
     <Item Value="DepartmentId"/>
   </AttrArray>

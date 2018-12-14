@@ -158,14 +158,14 @@
                                       autoComplete="off"/>
                         <af:inputText label="Email" id="it9" value="#{pageFlowScope.firebaseBean.employee.email}"
                                       autoComplete="off"/>
-                        <af:inputText label="Job" id="it10" value="#{pageFlowScope.firebaseBean.employee.jobId}"
-                                      autoComplete="off"/>
                         <af:inputText label="Phone" id="it11" value="#{pageFlowScope.firebaseBean.employee.phoneNumber}"
                                       autoComplete="off"/>
                         <af:inputDate label="Hire Date" id="it12"
                                       value="#{pageFlowScope.firebaseBean.employee.hireDate}" autoComplete="off">
                             <af:convertDateTime type="date" pattern="dd/MM/yyyy"/>
                         </af:inputDate>
+                        <af:inputText label="Job" id="it10" value="#{pageFlowScope.firebaseBean.employee.jobId}"
+                                      autoComplete="off"/>
                         <af:inputText label="Salary" id="it13" value="#{pageFlowScope.firebaseBean.employee.salary}"
                                       autoComplete="off"/>
                         <af:inputText label="Commission" id="it14"
