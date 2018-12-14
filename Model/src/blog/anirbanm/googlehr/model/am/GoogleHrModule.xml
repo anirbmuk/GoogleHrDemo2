@@ -98,6 +98,13 @@
         Name="_return_type_"
         Type="java.lang.String"/>
     </Method>
+    <Method
+      Name="deleteEmployee"
+      MethodName="deleteEmployee">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+    </Method>
   </ClientInterface>
   <ResourceBundle>
     <PropertiesBundle

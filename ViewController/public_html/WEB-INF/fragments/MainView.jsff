@@ -137,6 +137,7 @@
                     <af:button text="Add" id="b3">
                         <af:showPopupBehavior popupId="p2"/>
                     </af:button>
+                    <af:button actionListener="#{pageFlowScope.firebaseBean.onEmployeeDelete}" text="Delete" id="b5"/>
                     <af:button text="Upload" id="b4">
                         <af:showPopupBehavior popupId="p3"/>
                     </af:button>
@@ -184,7 +185,7 @@
             </af:popup>
         </af:panelCollection>
         <af:spacer width="10" height="10" id="s3"/>
-        <af:panelGroupLayout id="pgl2" partialTriggers="pc1:t1 pc2:t2 pc1:b1 pc1:b2 pc1:d1 pc2:b3 pc2:b4 pc2:d2 pc2:d3">
+        <af:panelGroupLayout id="pgl2" partialTriggers="pc1:t1 pc2:t2 pc1:b1 pc1:b2 pc1:d1 pc2:b3 pc2:b4 pc2:b5 pc2:d2 pc2:d3">
             <af:image source="#{pageFlowScope.firebaseBean.profile}" shortDesc="profile" id="i1" rendered="#{pageFlowScope.firebaseBean.profile != null}"/>
         </af:panelGroupLayout>
         <af:spacer width="10" height="10" id="s4"/>

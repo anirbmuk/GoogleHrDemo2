@@ -63,5 +63,8 @@
                   IsViewObjectMethod="false" DataControl="GoogleHrModuleDataControl"
                   InstanceName="bindings.getProfileImage.dataControl.dataProvider"
                   ReturnName="data.GoogleHrModuleDataControl.methodResults.getProfileImage_getProfileImage_dataControl_dataProvider_getProfileImage_result"/>
+    <methodAction id="deleteEmployee" RequiresUpdateModel="true" Action="invokeMethod" MethodName="deleteEmployee"
+                  IsViewObjectMethod="false" DataControl="GoogleHrModuleDataControl"
+                  InstanceName="bindings.deleteEmployee.dataControl.dataProvider"/>
   </bindings>
 </pageDefinition>

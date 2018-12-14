@@ -91,6 +91,11 @@ public class FirebaseManager implements Serializable {
         ADFUtils.findOperation("addEmployee").execute();
         setProfile((String) ADFUtils.findOperation("getProfileImage").execute());
     }
+    
+    public void onEmployeeDelete(final ActionEvent actionEvent) {
+        ADFUtils.findOperation("deleteEmployee").execute();
+        setProfile((String) ADFUtils.findOperation("getProfileImage").execute());
+    }
 
     public void upload(DialogEvent dialogEvent) {
         OperationBinding uploadProfileImage = ADFUtils.findOperation("uploadProfileImage");

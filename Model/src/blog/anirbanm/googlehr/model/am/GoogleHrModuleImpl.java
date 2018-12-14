@@ -59,7 +59,7 @@ import org.w3c.dom.NodeList;
 // ---------------------------------------------------------------------
 public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleHrModule {
 
-    private static final String PRIVATE_KEY = "C:\\mywork\\122130\\service-account.json";
+    private static final String PRIVATE_KEY = "C:\\JDeveloper\\122130\\service-account.json";
     private static final String FIREBASE_STORE = "hrstore";
     private static final String FIREBASE_DB = "https://hrstore-test.firebaseio.com";
     private static final String FIREBASE_BUCKET = "hrstore-test.appspot.com";
@@ -198,6 +198,23 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         }
     }
     
+    public void deleteEmployee() {
+        final EmployeesPVOImpl employeesView = getEmployeesPVO1();
+        final EmployeesPVORowImpl employee = (EmployeesPVORowImpl) employeesView.getCurrentRow();
+        if (employee != null) {
+            final Integer departmentId = employee.getDepartmentId();
+            String deleteEmployeeUri = getEmployeeUri(employee.getEmployeeId());
+            try {
+                deleteData(deleteEmployeeUri);
+                refreshEmployees(departmentId);
+            } catch (JsonMappingException | JsonParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
     private String getImagePath(Integer employeeId) {
         return "images/" + employeeId + "/profile.jpg";
     }
@@ -256,7 +273,7 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         final EmployeesPVOImpl employees = getEmployeesPVO1();
         final EmployeesPVORowImpl employee = (EmployeesPVORowImpl) employees.getCurrentRow();
         if (employee == null) {
-            return NO_IMAGE;
+            return null;
         }
         return getDownloadPath(employee.getEmployeeId());
     }
