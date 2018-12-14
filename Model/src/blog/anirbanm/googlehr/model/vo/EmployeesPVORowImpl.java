@@ -61,6 +61,7 @@ public class EmployeesPVORowImpl extends ProgrammaticViewRowImpl {
         ManagerId,
         DepartmentId;
         private static AttributesEnum[] vals = null;
+        ;
         private static final int firstIndex = 0;
 
         protected int index() {
@@ -82,6 +83,8 @@ public class EmployeesPVORowImpl extends ProgrammaticViewRowImpl {
             return vals;
         }
     }
+
+
     public static final int EMPLOYEEID = AttributesEnum.EmployeeId.index();
     public static final int FIRSTNAME = AttributesEnum.FirstName.index();
     public static final int LASTNAME = AttributesEnum.LastName.index();
@@ -187,5 +190,6 @@ public class EmployeesPVORowImpl extends ProgrammaticViewRowImpl {
     public Integer getDepartmentId() {
         return (Integer) getAttributeInternal(DEPARTMENTID);
     }
+
 }
 

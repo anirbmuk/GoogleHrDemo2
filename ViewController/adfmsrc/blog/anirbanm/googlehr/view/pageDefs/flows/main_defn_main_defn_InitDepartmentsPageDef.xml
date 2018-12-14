@@ -9,5 +9,9 @@
     <methodAction id="initDepartments" RequiresUpdateModel="true" Action="invokeMethod" MethodName="initDepartments"
                   IsViewObjectMethod="false" DataControl="GoogleHrModuleDataControl"
                   InstanceName="bindings.initDepartments.dataControl.dataProvider"/>
+    <methodAction id="getProfileImage" RequiresUpdateModel="true" Action="invokeMethod" MethodName="getProfileImage"
+                  IsViewObjectMethod="false" DataControl="GoogleHrModuleDataControl"
+                  InstanceName="bindings.getProfileImage.dataControl.dataProvider"
+                  ReturnName="data.GoogleHrModuleDataControl.methodResults.getProfileImage_getProfileImage_dataControl_dataProvider_getProfileImage_result"/>
   </bindings>
 </pageDefinition>

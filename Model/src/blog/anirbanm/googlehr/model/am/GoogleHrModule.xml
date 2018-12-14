@@ -41,20 +41,6 @@
         Type="void"/>
     </Method>
     <Method
-      Name="generateAccessToken"
-      MethodName="generateAccessToken">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-    </Method>
-    <Method
-      Name="initFirebase"
-      MethodName="initFirebase">
-      <Return
-        Name="_return_type_"
-        Type="void"/>
-    </Method>
-    <Method
       Name="onDepartmentSelection"
       MethodName="onDepartmentSelection">
       <Return
@@ -94,6 +80,23 @@
       <Parameter
         Name="employee"
         Type="blog.anirbanm.googlehr.viewmodel.data.Employee"/>
+    </Method>
+    <Method
+      Name="uploadProfileImage"
+      MethodName="uploadProfileImage">
+      <Return
+        Name="_return_type_"
+        Type="void"/>
+      <Parameter
+        Name="data"
+        Type="byte[]"/>
+    </Method>
+    <Method
+      Name="getProfileImage"
+      MethodName="getProfileImage">
+      <Return
+        Name="_return_type_"
+        Type="java.lang.String"/>
     </Method>
   </ClientInterface>
   <ResourceBundle>

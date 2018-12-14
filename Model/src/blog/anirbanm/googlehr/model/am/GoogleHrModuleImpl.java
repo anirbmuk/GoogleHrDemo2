@@ -4,6 +4,7 @@ import blog.anirbanm.googlehr.model.am.common.GoogleHrModule;
 import blog.anirbanm.googlehr.model.vo.DepartmentsPVOImpl;
 import blog.anirbanm.googlehr.model.vo.DepartmentsPVORowImpl;
 import blog.anirbanm.googlehr.model.vo.EmployeesPVOImpl;
+import blog.anirbanm.googlehr.model.vo.EmployeesPVORowImpl;
 import blog.anirbanm.googlehr.viewmodel.data.Department;
 import blog.anirbanm.googlehr.viewmodel.data.Employee;
 
@@ -14,8 +15,15 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import com.google.api.client.googleapis.auth.oauth2.GoogleCredential;
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.auth.oauth2.ServiceAccountCredentials;
+import com.google.cloud.storage.Blob;
+import com.google.cloud.storage.BlobId;
+import com.google.cloud.storage.BlobInfo;
+import com.google.cloud.storage.Bucket;
+import com.google.cloud.storage.Storage;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
+import com.google.firebase.cloud.StorageClient;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -27,10 +35,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
+import java.net.URL;
 import java.net.URLEncoder;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.concurrent.TimeUnit;
 
 import javax.ws.rs.core.MediaType;
 
@@ -49,8 +59,13 @@ import org.w3c.dom.NodeList;
 // ---------------------------------------------------------------------
 public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleHrModule {
 
-    private final String PRIVATE_KEY = "C:\\JDeveloper\\122130\\hrstore-test-firebase-adminsdk-v4li2-09770ed145.json";
-    private final String FIREBAE_STORE = "hrstore";
+    private static final String PRIVATE_KEY = "C:\\mywork\\122130\\service-account.json";
+    private static final String FIREBASE_STORE = "hrstore";
+    private static final String FIREBASE_DB = "https://hrstore-test.firebaseio.com";
+    private static final String FIREBASE_BUCKET = "hrstore-test.appspot.com";
+    private static final String IMG_CONTENT = "image/jpeg";
+    private static final String NO_IMAGE = "/images/no_image.jpg";
+    
     private String accessToken;
 
     /**
@@ -64,10 +79,11 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
             FileInputStream serviceAccount = new FileInputStream(PRIVATE_KEY);
             GoogleCredentials googleCred = GoogleCredentials.fromStream(serviceAccount);
             FirebaseOptions options = new FirebaseOptions.Builder().setCredentials(googleCred)
-                                                                   .setDatabaseUrl("https://hrstore-test.firebaseio.com/")
+                                                                   .setDatabaseUrl(FIREBASE_DB)
+                                                                   .setStorageBucket(FIREBASE_BUCKET)
                                                                    .build();
             if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options, FIREBAE_STORE);
+                FirebaseApp.initializeApp(options, FIREBASE_STORE);
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -86,6 +102,21 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public void uploadProfileImage(byte[] data) {
+        final EmployeesPVOImpl employeesView = getEmployeesPVO1();
+        final EmployeesPVORowImpl employeeRow = (EmployeesPVORowImpl) employeesView.getCurrentRow();
+        if (employeeRow == null) {
+            return;
+        }
+        final Integer employeeId = employeeRow.getEmployeeId();
+        Bucket bucket = getStorageClient().bucket();
+
+        Storage storage = bucket.getStorage();
+        BlobId blobId = BlobId.of(bucket.getName(), getImagePath(employeeId));
+        BlobInfo blobInfo = BlobInfo.newBuilder(blobId).setContentType(IMG_CONTENT).build();
+        storage.create(blobInfo, data);
     }
 
     public void initDepartments() {
@@ -125,7 +156,23 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
             e.printStackTrace();
         }
     }
-    
+
+    public void deleteDepartment() {
+        final DepartmentsPVOImpl departmentsView = getDepartmentsPVO1();
+        final DepartmentsPVORowImpl department = (DepartmentsPVORowImpl) departmentsView.getCurrentRow();
+        if (department != null) {
+            String deleteDepartmentUri = getDepartmentUri(department.getDepartmentId());
+            try {
+                deleteData(deleteDepartmentUri);
+                getDepartments(null);
+            } catch (JsonMappingException | JsonParseException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public void addEmployee(final Employee employee) {
         final Integer departmentId = employee.getDepartmentId();
         if (departmentId == null) {
@@ -151,20 +198,29 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         }
     }
     
-    public void deleteDepartment() {
-        final DepartmentsPVOImpl departmentsView = getDepartmentsPVO1();
-        final DepartmentsPVORowImpl department = (DepartmentsPVORowImpl) departmentsView.getCurrentRow();
-        if (department != null) {
-            String deleteDepartmentUri = getDepartmentUri(department.getDepartmentId());
+    private String getImagePath(Integer employeeId) {
+        return "images/" + employeeId + "/profile.jpg";
+    }
+    
+    private String getDownloadPath(Integer employeeId) {
+        if (employeeId == null) {
+            return null;
+        }
+        BlobId blobId = BlobId.of(getStorageClient().bucket().getName(), getImagePath(employeeId));
+        Bucket bucket = getStorageClient().bucket();
+        URL url = null;
+        Blob blob = bucket.getStorage().get(blobId);
+
+        if (blob != null) {            
             try {
-                deleteData(deleteDepartmentUri);
-                getDepartments(null);
-            } catch (JsonMappingException | JsonParseException e) {
-                e.printStackTrace();
+                url = blob.signUrl(1, TimeUnit.HOURS, Storage.SignUrlOption
+                                                             .signWith(ServiceAccountCredentials
+                                                                       .fromStream(new FileInputStream(PRIVATE_KEY))));
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        return url == null ? NO_IMAGE : url.toString();
     }
 
     private void getDepartments(final Integer currentDepartmentId) {
@@ -181,11 +237,11 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         if (currentDepartmentId != null) {
             department =
                 (DepartmentsPVORowImpl) departmentsView.findByKey(new Key(new Object[] { currentDepartmentId }), 1)[0];
-            if (department != null) {
-                departmentsView.setCurrentRow(department);
-            }
         } else {
             department = (DepartmentsPVORowImpl) departmentsView.first();
+        }
+        if (department != null) {
+            departmentsView.setCurrentRow(department);
         }
         id = department == null ? null : department.getDepartmentId();
 
@@ -194,6 +250,15 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    public String getProfileImage() {
+        final EmployeesPVOImpl employees = getEmployeesPVO1();
+        final EmployeesPVORowImpl employee = (EmployeesPVORowImpl) employees.getCurrentRow();
+        if (employee == null) {
+            return NO_IMAGE;
+        }
+        return getDownloadPath(employee.getEmployeeId());
     }
 
     private HashMap<String, Object> getAllDepartments() throws IOException {
@@ -209,6 +274,14 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
         employeesView.setData(departmentId == null ? new HashMap<String, Object>() :
                               getEmployeesByDepartment(departmentId));
         employeesView.executeQuery();
+        EmployeesPVORowImpl employee = (EmployeesPVORowImpl) employeesView.first();
+        if (employee != null) {
+            employeesView.setCurrentRow(employee);
+        }
+    }
+    
+    private StorageClient getStorageClient() {
+        return StorageClient.getInstance(getFirebaseApp(FIREBASE_STORE));
     }
 
     private FirebaseApp getFirebaseApp(final String ref) {
@@ -224,19 +297,19 @@ public class GoogleHrModuleImpl extends ApplicationModuleImpl implements GoogleH
     }
 
     private String getAllDepartmentsUri() {
-        return getFirebaseDatabase(FIREBAE_STORE).child("Departments") + ".json";
+        return getFirebaseDatabase(FIREBASE_STORE).child("Departments") + ".json";
     }
 
     private String getDepartmentUri(final Integer departmentId) {
-        return getFirebaseDatabase(FIREBAE_STORE).child("Departments").child(String.valueOf(departmentId)) + ".json";
+        return getFirebaseDatabase(FIREBASE_STORE).child("Departments").child(String.valueOf(departmentId)) + ".json";
     }
 
     private String getEmployeeUri(final Integer employeeId) {
-        return getFirebaseDatabase(FIREBAE_STORE).child("Employees").child(String.valueOf(employeeId)) + ".json";
+        return getFirebaseDatabase(FIREBASE_STORE).child("Employees").child(String.valueOf(employeeId)) + ".json";
     }
 
     private String filterEmployeesByDepartmentUri(Integer departmentId) throws UnsupportedEncodingException {
-        return getFirebaseDatabase(FIREBAE_STORE).child("Employees") + ".json?" +
+        return getFirebaseDatabase(FIREBASE_STORE).child("Employees") + ".json?" +
                URLEncoder.encode("orderBy=\"DepartmentId\"&equalTo=" + departmentId, "UTF-8");
     }
 

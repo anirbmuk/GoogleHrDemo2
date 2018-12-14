@@ -3,14 +3,17 @@
           xmlns:af="http://xmlns.oracle.com/adf/faces/rich">
     <jsp:directive.page contentType="text/html;charset=UTF-8"/>
     <f:view>
-        <af:document title="Google HR - Login" id="d1">
+        <af:document title="Google HR - Login" id="d1" initialFocusId="s1:it1">
             <af:form id="f1">
                 <af:panelGroupLayout id="pgl1" layout="vertical" styleClass="AFStretchWidth">
-                    <af:panelFormLayout id="pfl1">
-                        <af:inputText label="User" id="it1" autoComplete="off" binding="#{loginBean.username}"/>
-                        <af:inputText label="Password" id="it2" secret="true" binding="#{loginBean.password}"/>
-                        <af:button text="Login" id="b1" actionListener="#{loginBean.doLogin}"/>
-                    </af:panelFormLayout>
+                    <af:subform id="s1" defaultCommand="b1">
+                        <af:panelFormLayout id="pfl1">
+                            <af:inputText label="User" id="it1" autoComplete="off" binding="#{loginBean.username}"
+                                          clientComponent="true"/>
+                            <af:inputText label="Password" id="it2" secret="true" binding="#{loginBean.password}"/>
+                            <af:button text="Login" id="b1" actionListener="#{loginBean.doLogin}"/>
+                        </af:panelFormLayout>
+                    </af:subform>
                 </af:panelGroupLayout>
             </af:form>
         </af:document>

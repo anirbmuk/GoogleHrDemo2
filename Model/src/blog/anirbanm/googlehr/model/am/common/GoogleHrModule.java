@@ -23,5 +23,9 @@ public interface GoogleHrModule extends ApplicationModule {
     void deleteDepartment();
 
     void addEmployee(Employee employee);
+
+    void uploadProfileImage(byte[] data);
+
+    String getProfileImage();
 }
 

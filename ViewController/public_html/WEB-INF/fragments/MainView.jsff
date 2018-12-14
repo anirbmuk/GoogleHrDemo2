@@ -43,7 +43,7 @@
                     <af:button text="Add" id="b1">
                         <af:showPopupBehavior popupId="p1"/>
                     </af:button>
-                    <af:button actionListener="#{bindings.deleteDepartment.execute}" text="Delete" id="b2"/>
+                    <af:button actionListener="#{pageFlowScope.firebaseBean.onDepartmentDelete}" text="Delete" id="b2"/>
                 </af:toolbar>
             </f:facet>
             <af:popup childCreation="deferred" autoCancel="disabled" contentDelivery="lazyUncached" id="p1"
@@ -69,8 +69,9 @@
             <af:table value="#{bindings.EmployeesPVO1.collectionModel}" var="row"
                       rows="#{bindings.EmployeesPVO1.rangeSize}" styleClass="AFStretchWidth"
                       emptyText="#{bindings.EmployeesPVO1.viewable ? 'No employees found.' : 'Access Denied.'}"
-                      rowBandingInterval="0" fetchSize="#{bindings.EmployeesPVO1.rangeSize}" id="t2" summary="Employees"
-                      autoHeightRows="5">
+                      rowBandingInterval="0" selectedRowKeys="#{bindings.EmployeesPVO1.collectionModel.selectedRow}"
+                      rowSelection="single" fetchSize="#{bindings.EmployeesPVO1.rangeSize}" id="t2" summary="Employees"
+                      autoHeightRows="5" selectionListener="#{pageFlowScope.firebaseBean.onEmployeeSelection}">
                 <af:column headerText="#{bindings.EmployeesPVO1.hints.EmployeeId.label}" id="c5" rowHeader="true"
                            align="left" width="110">
                     <af:outputText value="#{row.EmployeeId}"
@@ -136,6 +137,9 @@
                     <af:button text="Add" id="b3">
                         <af:showPopupBehavior popupId="p2"/>
                     </af:button>
+                    <af:button text="Upload" id="b4">
+                        <af:showPopupBehavior popupId="p3"/>
+                    </af:button>
                 </af:toolbar>
             </f:facet>
             <af:popup childCreation="deferred" autoCancel="disabled" contentDelivery="lazyUncached" id="p2"
@@ -170,7 +174,19 @@
                     </af:panelFormLayout>
                 </af:dialog>
             </af:popup>
+            <af:popup childCreation="deferred" autoCancel="disabled" id="p3" contentDelivery="lazyUncached">
+                <af:dialog id="d3" title="Upload Image" dialogListener="#{pageFlowScope.firebaseBean.upload}">
+                    <af:panelFormLayout id="pfl3">
+                        <af:inputFile label="Image Path" id="if1"
+                                      binding="#{backingBeanScope.componentBean.imagePath}"/>
+                    </af:panelFormLayout>
+                </af:dialog>
+            </af:popup>
         </af:panelCollection>
         <af:spacer width="10" height="10" id="s3"/>
+        <af:panelGroupLayout id="pgl2" partialTriggers="pc1:t1 pc2:t2 pc1:b1 pc1:b2 pc1:d1 pc2:b3 pc2:b4 pc2:d2 pc2:d3">
+            <af:image source="#{pageFlowScope.firebaseBean.profile}" shortDesc="profile" id="i1" rendered="#{pageFlowScope.firebaseBean.profile != null}"/>
+        </af:panelGroupLayout>
+        <af:spacer width="10" height="10" id="s4"/>
     </af:panelGroupLayout>
 </jsp:root>

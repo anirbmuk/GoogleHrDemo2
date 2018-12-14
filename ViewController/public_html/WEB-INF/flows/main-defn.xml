@@ -10,6 +10,11 @@
       <managed-bean-class>blog.anirbanm.googlehr.view.bean.FirebaseManager</managed-bean-class>
       <managed-bean-scope>pageFlow</managed-bean-scope>
     </managed-bean>
+    <managed-bean id="__4">
+      <managed-bean-name>componentBean</managed-bean-name>
+      <managed-bean-class>blog.anirbanm.googlehr.view.bean.ComponentManager</managed-bean-class>
+      <managed-bean-scope>backingBean</managed-bean-scope>
+    </managed-bean>
     <method-call id="InitDepartments">
       <method>#{pageFlowScope.firebaseBean.initDepartments}</method>
       <outcome>
